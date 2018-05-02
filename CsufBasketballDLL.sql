@@ -10,8 +10,8 @@ CREATE TABLE Staff
 (
   StaffId INTEGER NOT NULL,
   Password VARCHAR(100) NOT NULL,
-  FirstName VARCHAR(30),
-  LastName VARCHAR(30),
+  FirstName VARCHAR(30) NOT NULL,
+  LastName VARCHAR(30) NOT NULL,
 
   UNIQUE(StaffId, Password)
 );
