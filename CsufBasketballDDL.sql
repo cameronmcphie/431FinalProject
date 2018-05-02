@@ -27,7 +27,7 @@ CREATE TABLE Players
   Zipcode CHAR(10),
   Active BOOLEAN NOT NULL,
 
-  CHECK (ZipCode REGEXP '(?!0{5})(?!9{5})\\d{5}(-(?!0{4})(?!9{4})\\d{4})?'),
+  CHECK (ZipCode REGEXP '(?!0{5})(?!9{5})\\d{5}(-(?!0{4})(?!9{4})\\d{4})?')
 );
 
 CREATE TABLE Games
@@ -38,18 +38,7 @@ CREATE TABLE Games
   OpposingTeamScore TINYINT(3) NOT NULL,
   LastUpdatedBy INTEGER NOT NULL,
 
-  FOREIGN KEY (LastUpdatedBy) REFERENCES Staff(StaffId),
-);
-
-CREATE TABLE Played_IN
-(
-  PlayerIdIn INTEGER UNSIGNED NOT NULL,
-  GameIdIn INTEGER UNSIGNED NOT NULL,
-
-  FOREIGN KEY (PlayerIdIn) REFERENCES Players(PlayerId),
-  FOREIGN KEY (GameIdIn) REFERENCES Games(GameId),
-
-  UNIQUE(PlayerIdIn,GameIdIn)
+  FOREIGN KEY (LastUpdatedBy) REFERENCES Staff(StaffId)
 );
 
 CREATE TABLE Stats (
@@ -65,4 +54,18 @@ CREATE TABLE Stats (
 
   CHECK((PlayingTimeMin < 40 AND PlayingTimeSec < 60) OR
         (PlayingTimeMin = 40 AND PlayingTimeSec = 0 ))
+);
+
+CREATE TABLE Played_IN
+(
+  PlayerIdIn INTEGER UNSIGNED NOT NULL,
+  GameIdIn INTEGER UNSIGNED NOT NULL,
+  StatIdIn INTEGER UNSIGNED NOT NULL,
+
+
+  FOREIGN KEY (PlayerIdIn) REFERENCES Players(PlayerId),
+  FOREIGN KEY (GameIdIn) REFERENCES Games(GameId),
+  FOREIGN KEY (StatIdIn) REFERENCES Stats(StatId),
+
+  UNIQUE(PlayerIdIn,GameIdIn)
 );
