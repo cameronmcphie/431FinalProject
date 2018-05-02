@@ -28,8 +28,6 @@ CREATE TABLE Players
   Active BOOLEAN NOT NULL,
 
   CHECK (ZipCode REGEXP '(?!0{5})(?!9{5})\\d{5}(-(?!0{4})(?!9{4})\\d{4})?'),
-
-  INDEX(PlayerId)
 );
 
 CREATE TABLE Games
@@ -41,8 +39,6 @@ CREATE TABLE Games
   LastUpdatedBy INTEGER NOT NULL,
 
   FOREIGN KEY (LastUpdatedBy) REFERENCES Staff(StaffId),
-
-  INDEX(GameId)
 );
 
 CREATE TABLE Played_IN
