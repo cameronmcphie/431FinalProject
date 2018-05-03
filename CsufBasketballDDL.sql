@@ -8,7 +8,8 @@ USE CsufBasketball;
 
 CREATE TABLE Staff
 (
-  StaffId INTEGER NOT NULL,
+  StaffId INTEGER NOT NULL AUTO_INCREMENT,
+  UserName VARCHAR(100) NOT NULL,
   Password VARCHAR(100) NOT NULL,
   FirstName VARCHAR(30) NOT NULL,
   LastName VARCHAR(30) NOT NULL,
@@ -26,6 +27,9 @@ CREATE TABLE Players
   Country VARCHAR(100),
   Zipcode CHAR(10),
   Active BOOLEAN NOT NULL,
+  LastModifiedBy INTEGER UNSIGNED NOT NULL,
+
+  FOREIGN KEY (LastUpdatedBy) REFERENCES Staff(StaffId),
 
   CHECK (ZipCode REGEXP '(?!0{5})(?!9{5})\\d{5}(-(?!0{4})(?!9{4})\\d{4})?')
 );
