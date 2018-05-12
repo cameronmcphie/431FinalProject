@@ -56,8 +56,6 @@
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result($unamecheck);
       }
     else {
       throw new Exception('Could not execute query');
@@ -67,22 +65,42 @@
       throw new Exception('That username is taken - go back and choose another one.');
     }
 
+    $db = new mysqli(DATA_BASE_HOST, USER_NAME, USER_PASSWORD, DATA_BASE_NAME);
     if(mysqli_connect_error() == 0)
       {
-        $query = "INSERT INTO Person (FirstName, LastName, Street, City, Country, Zipcode, Email)
-                  VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param('sssssss', $firstname, $lastname, $street, $city, $country, $zipcode, $email);
-        $stmt->execute();
+        $query = "INSERT INTO Person
+                  SET FirstName = ?,
+                      LastName = ?,
+                      Street = ?,
+                      City = ?,
+                      Country = ?,
+                      Zipcode = ?,
+                      Email = ?";
+        //$stmt = $db->prepare($query);
+        if($stmt = $db->prepare($query)) {
+            $stmt->bind_param('sssssss', $firstname, $lastname, $street, $city, $country, $zipcode, $email);
+            $stmt->execute();
+        }
+        else {
+          printf('errno: %d, error: %s', $db->errno, $db->error);
+          die;
+        }
 
-
-        $query = "INSERT INTO
-                    User (PersonId, UserName, Password)
-                  VALUES
-                    (last_insert_id(), ?, ?);";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param('ss', $username, sha1($password));
+        $db = new mysqli(DATA_BASE_HOST, USER_NAME, USER_PASSWORD, DATA_BASE_NAME);
+        $query = "INSERT INTO User
+                  SET PersonId = last_insert_id(),
+                      Username = ?,
+                      Password = ?;";
+        if ($stmt = $db->prepare($query))
+        {
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
+        }
+        else {
+          printf('errno: %d, error: %s', $db->errno, $db->error);
+          die;
+        }
+
       }
     else {
       throw new Exception('Could not register you - please try again later.');
