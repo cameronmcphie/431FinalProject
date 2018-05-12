@@ -86,15 +86,21 @@
           die;
         }
 
+        $id = $db->insert_id;
+        $password = sha1($password);
         $db = new mysqli(DATA_BASE_HOST, USER_NAME, USER_PASSWORD, DATA_BASE_NAME);
         $query = "INSERT INTO User
-                  SET PersonId = last_insert_id(),
+                  SET PersonId = ?,
                       Username = ?,
                       Password = ?;";
         if ($stmt = $db->prepare($query))
         {
-        $stmt->bind_param('ss', $username, $password);
-        $stmt->execute();
+        $stmt->bind_param('iss', $id, $username, $password);
+
+        if($stmt->execute() == false)
+          {
+            die('execute() failed: ' . htmlspecialchars($stmt->error));
+          }
         }
         else {
           printf('errno: %d, error: %s', $db->errno, $db->error);
