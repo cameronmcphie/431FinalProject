@@ -1,8 +1,11 @@
 drop database if exists CsufBasketball;
 create database if not exists CsufBasketball;
 
-drop user if exists 'phpWebEngine';
-grant select, insert, delete, update, execute on CsufBasketBall.* to 'phpWebEngine' identified by 'withheld';
+drop user if exists 'Manager';
+grant select, insert, update, execute on CsufBasketBall.* to 'Manager' identified by 'withheld';
+
+drop user if exists 'User';
+grant select, update, execute on CsufBasketBall.* to 'User' identified by 'withheld';
 
 USE CsufBasketball;
 
