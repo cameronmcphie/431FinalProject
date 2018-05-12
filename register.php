@@ -3,7 +3,7 @@
   do_header("Register");
 ?>
 
-<form method="post" action="register_new.php">
+<form method="post" action="register_proc.php">
 
  <div class="register-form">
     <h2>Register Now</h2>

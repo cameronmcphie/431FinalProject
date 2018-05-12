@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // create short variable names
 $firstName     = trim( preg_replace("/\t|\R/",' ',$_POST['firstName']) );
 $lastName      = trim( preg_replace("/\t|\R/",' ',$_POST['lastName'])  );
@@ -39,4 +42,21 @@ if( ! empty($lastName) ) // Verify required fields are present
 }
 
 require('home_page.php');
+?>
+<?php
+$conn = db_connect();
+
+  // check if username is unique
+  $result = $conn->query("select * from user
+                         where username='".$username."'
+                         and passwd = sha1('".$password."')");
+  if (!$result) {
+     throw new Exception('Could not log you in.');
+  }
+
+  if ($result->num_rows>0) {
+     return true;
+  } else {
+     throw new Exception('Could not log you in.');
+  }
 ?>
