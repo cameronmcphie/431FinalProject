@@ -26,6 +26,7 @@ try {
     $stmt->bind_result($userid, $username, $password, $role);
     while($stmt->fetch()) {
       $userid = $userid;
+      $username = $username;
       $role = $role;
     }
 
@@ -37,6 +38,7 @@ try {
       // Add session variables
       $_SESSION['valid_user'] = true;
       $_SESSION['user_id'] = $userid;
+      $_SESSION['username'] = $username;
       $_SESSION['role'] = $role;
 
       header('Location: team.php');
