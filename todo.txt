@@ -2,7 +2,7 @@ team.php - page with links to game boxscore(game.php) and players(player.php)
 
 addgame.php - add game Stats if role = 1 will put link on team.php
 
-game.php - show stats for each game
+game.php - show stats for for the game selected
 
 player.php - show player stats per game and averages at the bottom
 
