@@ -11,7 +11,7 @@ try {
 
     if (mysqli_connect_error() == 0) {
         $query = "SELECT Email, Username
-                    FROM Person, User
+                    FROM Person, Users
                     WHERE Email = ?
                     AND Username = ?";
         $stmt  = $db->prepare($query);
@@ -29,7 +29,7 @@ try {
             $newPassword = sha1($newPassword);
             if(mysqli_connect_error() == 0)
               {
-              $query = "UPDATE User
+              $query = "UPDATE Users
                         SET Password = ?
                         WHERE Username = ?";
               $stmt  = $db->prepare($query);
@@ -39,7 +39,7 @@ try {
                 $from = "From: quiksilver980@gmail.com \r\n";
                 $mesg = "Your CSUF Basketball password has been changed to ".$words."\r\n";
                   if (mail($email, 'CsufBasketBall', $mesg, $from)) {
-                      require_once('funtions/html_base.php');
+                      require_once('functions/html_base.php');
                       do_header('Success');
                       echo '<p>Please, check your email for your new password!<p>';
                       echo '<br><a href="index.php">Login</a><br>';
@@ -57,7 +57,7 @@ try {
 }
 
 catch (Exception $e) {
-    require_once('funtions/html_base.php');
+    require_once('functions/html_base.php');
     do_header('Problem');
     echo $e->getMessage();
     echo '<br><a href="forgotpassword.php">Try Again</a><br>';

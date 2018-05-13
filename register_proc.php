@@ -1,5 +1,5 @@
 <?php
-  require_once('funtions/validate_data.php');
+  require_once('functions/validate_data.php');
 
   $email = htmlspecialchars(trim($_POST['email']));
   $username = htmlspecialchars(trim($_POST['username']));
@@ -37,7 +37,7 @@
 
     if(mysqli_connect_error() == 0)
       {
-        $query = "SELECT Username FROM User WHERE Username = ?";
+        $query = "SELECT Username FROM Users WHERE Username = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
@@ -79,7 +79,7 @@
         $id = $db->insert_id;
         $password = sha1($password);
         $db = new mysqli(DATA_BASE_HOST, USER_NAME, USER_PASSWORD, DATA_BASE_NAME);
-        $query = "INSERT INTO User
+        $query = "INSERT INTO Users
                   SET PersonId = ?,
                       Username = ?,
                       Password = ?";
@@ -94,16 +94,17 @@
     else {
       throw new Exception('Could not register you - please try again later.3');
     }
-    require_once('funtions/html_base.php');
+    require_once('functions/html_base.php');
     do_header('Registration successful');
     echo 'Your registration was successful.';
     echo '<br><a href="index.php">login</a><br>';
     do_footer();
   }
   catch (Exception $e) {
-     do_header('Problem');
-     echo $e->getMessage();
-     echo '<br><a href="register.php">Try Again</a><br>';
-     do_footer();
+    require_once('functions/html_base.php');
+    do_header('Problem');
+    echo $e->getMessage();
+    echo '<br><a href="register.php">Try Again</a><br>';
+    do_footer();
   }
 ?>

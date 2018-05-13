@@ -1,6 +1,6 @@
 <?php
   session_start();
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_header("CSUF Baskeketball");
 
 
@@ -18,11 +18,15 @@
 ?>
 <div class = "logged-in-header">
   <a href="changepassword.php">Change Password</a>
+  </br>
+  <?php if($_SESSION['role'] == 1)
+  echo '<a href="addplayer.php">Add Player to Roster</a>'
+  ?>
 </div>
 
 
 
 <?php
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_footer();
  ?>

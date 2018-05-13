@@ -1,7 +1,7 @@
 <?php
 
   session_start();
-  require_once('funtions/validate_data.php');
+  require_once('functions/validate_data.php');
 
   $oldpassword = sha1($_POST['currentpassword']);
   $newpassword = $_POST['newpassword'];
@@ -26,7 +26,7 @@
     // Check if it the same password
     if(mysqli_connect_error() == 0)
       {
-        $query= "SELECT * FROM User
+        $query= "SELECT * FROM Users
                 WHERE Username = ?
                 AND Password = ?";
         $stmt = $db->prepare($query);
@@ -43,14 +43,14 @@
       $newpassword = sha1($newpassword);
       if(mysqli_connect_error() == 0)
       {
-        $query = "UPDATE User
+        $query = "UPDATE Users
                   SET Password = ?
                   WHERE Username = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param('ss', $newpassword, $_SESSION['username']);
         if($stmt->execute()) {
-          require_once('funtions/html_base.php');
-          do_header('Success');
+          require_once('functions/html_base.php');
+          do_header("Success");
           echo '<p>Your password has been changed!<p>';
           echo '<br><a href="team.php">Return to Home</a><br>';
           do_footer();
@@ -61,8 +61,8 @@
       }
   }
   catch (Exception $e) {
-    require_once('funtions/html_base.php');
-    do_header('Problem');
+    require_once('functions/html_base.php');
+    do_header("Problem");
     echo $e->getMessage();
     echo '<br><a href="changepassword.php">Try Again</a><br>';
     do_footer();

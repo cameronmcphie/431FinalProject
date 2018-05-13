@@ -1,5 +1,5 @@
 <?php
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_header("Forgot Password");
 ?>
 
@@ -22,6 +22,6 @@
    </div>
 
 <?php
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_footer();
  ?>

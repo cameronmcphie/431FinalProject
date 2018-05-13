@@ -2,10 +2,10 @@ drop database if exists CsufBasketball;
 create database if not exists CsufBasketball;
 
 drop user if exists 'Manager';
-grant select, insert, update, execute on CsufBasketBall.* to 'Manager' identified by 'withheld';
+grant select, insert, update, execute on CsufBasketball.* to 'Manager' identified by 'withheld';
 
 drop user if exists 'User';
-grant select, update, execute on CsufBasketBall.* to 'User' identified by 'withheld';
+grant select, update, execute on CsufBasketball.* to 'User' identified by 'withheld';
 
 USE CsufBasketball;
 
@@ -24,12 +24,12 @@ CREATE TABLE Person
 );
 
 
-CREATE TABLE User
+CREATE TABLE Users
 (
   PersonId INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Username VARCHAR(16) NOT NULL,
   Password VARCHAR(100) NOT NULL,
-  Role TINYINT(1) NOT NULL,
+  Role TINYINT(1) DEFAULT 0,
 
   FOREIGN KEY (PersonId) REFERENCES Person(Id),
 
@@ -39,7 +39,7 @@ CREATE TABLE User
 CREATE TABLE Player
 (
   PersonId INTEGER UNSIGNED NOT NULL PRIMARY KEY,
-  Active BOOLEAN NOT NULL,
+  Active BOOLEAN NOT NULL DEFAULT True,
   Height TINYINT(3) DEFAULT 0,
   Weight TINYINT(3) DEFAULT 0,
   InactiveNote VARCHAR(300),

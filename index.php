@@ -2,7 +2,7 @@
   session_start();
   // TO ADD
   // If already have session redirect to Team.php
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_header("Login");
 ?>
   <h1>Welcome to CSUF BaskeketBall Stats!</h1>
@@ -27,6 +27,6 @@
  </form>
 
  <?php
-   require_once('funtions/html_base.php');
+   require_once('functions/html_base.php');
    do_footer();
   ?>

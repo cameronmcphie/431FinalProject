@@ -12,7 +12,7 @@ try {
 
   if(mysqli_connect_error() == 0)
     {
-    $query= "SELECT * FROM User
+    $query= "SELECT * FROM Users
             WHERE Username = ?
             AND Password = ?";
     $stmt = $db->prepare($query);
@@ -43,7 +43,7 @@ try {
   }
 }
 catch (Exception $e) {
-    require_once('funtions/html_base.php');
+    require_once('functions/html_base.php');
     do_header('Problem');
     echo $e->getMessage();
     echo '<br><a href="index.php">Try Again</a><br>';

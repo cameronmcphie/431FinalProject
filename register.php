@@ -1,5 +1,5 @@
 <?php
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_header("Register");
 ?>
 
@@ -49,6 +49,6 @@
   </form>
 
 <?php
-  require_once('funtions/html_base.php');
+  require_once('functions/html_base.php');
   do_footer();
 ?>
