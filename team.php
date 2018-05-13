@@ -3,6 +3,7 @@
   require_once('funtions/html_base.php');
   do_header("CSUF Baskeketball");
 
+
   // Add to page
   // Welcome to site name $username (get from session data)
 
@@ -12,19 +13,12 @@
 
   echo $_SESSION['valid_user'];
   echo $_SESSION['user_id'];
+  echo $_SESSION['username'];
   echo $_SESSION['role'];
 ?>
-
-
-
-
-<?php
-  require_once('funtions/html_base.php');
-  do_footer();
- ?>
-
-?>
-
+<div class = "logged-in-header">
+  <a href="changepassword.php">Change Password</a>
+</div>
 
 
 

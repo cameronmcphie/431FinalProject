@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $email    = htmlspecialchars(trim($_POST['email']));
 $username = htmlspecialchars(trim($_POST['username']));
@@ -25,27 +27,30 @@ try {
             $newPassword = $words;
 
             $newPassword = sha1($newPassword);
+            if(mysqli_connect_error() == 0)
+              {
+              $query = "UPDATE User
+                        SET Password = ?
+                        WHERE Username = ?";
+              $stmt  = $db->prepare($query);
+              $stmt->bind_param('ss', $newPassword, $username);
+              if ($stmt->execute()) {
 
-            $query = "UPDATE User
-                      SET Password = ?
-                      WHERE Username = ?";
-            $stmt  = $db->prepare($query);
-            $stmt->bind_param('ss', $newPassword, $username);
-            if ($stmt->execute()) {
-
-              $from = "From: quiksilver980@gmail.com \r\n";
-              $mesg = "Your PHPBookmark password has been changed to ".$words."\r\n";
-                if (mail($email, 'CsufBasketBall', $mesg, $from)) {
-                    require_once('funtions/html_base.php');
-                    do_header('Success');
-                    echo '<p>Please, check your email for your new password!<p>';
-                    echo '<br><a href="index.php">Login</a><br>';
-                    do_footer();
+                $from = "From: quiksilver980@gmail.com \r\n";
+                $mesg = "Your CSUF Basketball password has been changed to ".$words."\r\n";
+                  if (mail($email, 'CsufBasketBall', $mesg, $from)) {
+                      require_once('funtions/html_base.php');
+                      do_header('Success');
+                      echo '<p>Please, check your email for your new password!<p>';
+                      echo '<br><a href="index.php">Login</a><br>';
+                      do_footer();
                 } else {
                     throw new Exception('Could not send email.');
                 }
             }
-        } else {
+          }
+        }
+        else {
             throw new Exception('Please try again later.');
         }
     }

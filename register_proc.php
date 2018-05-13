@@ -1,5 +1,4 @@
 <?php
-  require_once('funtions/html_base.php');
   require_once('funtions/validate_data.php');
 
   $email = htmlspecialchars(trim($_POST['email']));
@@ -95,18 +94,16 @@
     else {
       throw new Exception('Could not register you - please try again later.3');
     }
-
+    require_once('funtions/html_base.php');
     do_header('Registration successful');
     echo 'Your registration was successful.';
     echo '<br><a href="index.php">login</a><br>';
-
-   // end page
-   do_footer();
+    do_footer();
   }
   catch (Exception $e) {
      do_header('Problem');
      echo $e->getMessage();
+     echo '<br><a href="register.php">Try Again</a><br>';
      do_footer();
-     exit;
   }
 ?>

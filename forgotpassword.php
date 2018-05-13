@@ -11,13 +11,13 @@
       <p>
         <label for="email">Enter Your Email:</label>
         <br/>
-      <input type="text" name="email" id="email" required />
+        <input type="text" name="email" id="email" required />
+      </p>
       <p>
-        </p>
         <label for="username">Enter Your Username:</label><br/>
         <input type="text" name="username" id="username" required />
-    </p>
-    <button type="submit">Change Password</button>
+      </p>
+      <button type="submit">Change Password</button>
 
    </div>
 

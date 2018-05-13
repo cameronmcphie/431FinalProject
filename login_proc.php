@@ -33,6 +33,7 @@ try {
       // Add session variables
       $_SESSION['valid_user'] = true;
       $_SESSION['user_id'] = $userid;
+      $_SESSION['username'] = $username;
       $_SESSION['role'] = $role;
 
       header('Location: team.php');
