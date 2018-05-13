@@ -1,8 +1,4 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
-
-  require_once('funtions/html_base.php');
 
   $username = htmlspecialchars(trim($_POST['username']));
   $password = sha1($_POST['password']);
@@ -26,7 +22,6 @@ try {
     $stmt->bind_result($userid, $username, $password, $role);
     while($stmt->fetch()) {
       $userid = $userid;
-      $username = $username;
       $role = $role;
     }
 
@@ -38,7 +33,6 @@ try {
       // Add session variables
       $_SESSION['valid_user'] = true;
       $_SESSION['user_id'] = $userid;
-      $_SESSION['username'] = $username;
       $_SESSION['role'] = $role;
 
       header('Location: team.php');
@@ -48,10 +42,10 @@ try {
   }
 }
 catch (Exception $e) {
-   do_header('Problem');
-   echo $e->getMessage();
-   echo '<br><a href="index.php">Try Again</a><br>';
-   do_footer();
-   exit;
+    require_once('funtions/html_base.php');
+    do_header('Problem');
+    echo $e->getMessage();
+    echo '<br><a href="index.php">Try Again</a><br>';
+    do_footer();
 }
 ?>

@@ -38,10 +38,11 @@
 
     if(mysqli_connect_error() == 0)
       {
-        $query = "SELECT UserName FROM User WHERE UserName = ?";
+        $query = "SELECT Username FROM User WHERE Username = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
+        $stmt->store_result();
       }
     else {
       throw new Exception('Could not execute query');
@@ -88,18 +89,11 @@
         if($stmt->execute() == false)
           {
             //die('execute() failed: ' . htmlspecialchars($stmt->error));
-            throw new Exception('Could not register you - please try again later.');
+            throw new Exception('Could not register you - please try again later.1');
           }
-
-        else {
-          // printf('errno: %d, error: %s', $db->errno, $db->error);
-          // die;
-          throw new Exception('Could not register you - please try again later.');
-        }
-
       }
     else {
-      throw new Exception('Could not register you - please try again later.');
+      throw new Exception('Could not register you - please try again later.3');
     }
 
     do_header('Registration successful');

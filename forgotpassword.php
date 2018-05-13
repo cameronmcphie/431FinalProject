@@ -11,7 +11,11 @@
       <p>
         <label for="email">Enter Your Email:</label>
         <br/>
-      <input type="text" name="username" id="emnail" size="16" maxlength="16" required />
+      <input type="text" name="email" id="email" required />
+      <p>
+        </p>
+        <label for="username">Enter Your Username:</label><br/>
+        <input type="text" name="username" id="username" required />
     </p>
     <button type="submit">Change Password</button>
 
