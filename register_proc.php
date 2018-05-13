@@ -44,7 +44,7 @@
         $stmt->store_result();
       }
     else {
-      throw new Exception('Could not execute query');
+      throw new Exception('Could not register you - please try again later.');
     }
 
     if ($stmt->num_rows > 0) {
@@ -88,14 +88,14 @@
         if($stmt->execute() == false)
           {
             //die('execute() failed: ' . htmlspecialchars($stmt->error));
-            throw new Exception('Could not register you - please try again later.1');
+            throw new Exception('Could not register you - please try again later.');
           }
       }
     else {
-      throw new Exception('Could not register you - please try again later.3');
+      throw new Exception('Could not register you - please try again later.');
     }
     require_once('functions/html_base.php');
-    do_header('Registration successful');
+    do_header('Registration Successful');
     echo 'Your registration was successful.';
     echo '<br><a href="index.php">login</a><br>';
     do_footer();
