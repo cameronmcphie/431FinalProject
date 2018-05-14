@@ -10,8 +10,7 @@
     <h2>Register Now</h2>
 
     <p><label for="email">Email Address:</label><br/>
-    <input type="email" name="email" id="email"
-      size="30" maxlength="100" required /></p>
+    <input type="email" name="email" id="email" size="30" maxlength="100" required /></p>
 
     <p><label for="firstname">First Name:</label><br/>
     <input type="text" name="firstname" id="firstname" size="16" maxlength="30" required /></p>
