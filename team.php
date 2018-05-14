@@ -19,8 +19,11 @@
 <div class = "logged-in-header">
   <a href="changepassword.php">Change Password</a>
   </br>
-  <?php if($_SESSION['role'] == 1)
-  echo '<a href="addplayer.php">Add Player to Roster</a>'
+  <?php
+    if($_SESSION['role'] == 1) {
+    echo '</br><a href="addplayer.php">Add Player to Roster</a>';
+    echo '</br><a href="addgame.php">Add Game Stats</a>';
+    }
   ?>
 </div>
 

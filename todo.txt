@@ -7,3 +7,5 @@ game.php - show stats for each game
 player.php - show player stats per game and averages at the bottom
 
 logout
+
+Active and inactivate player
