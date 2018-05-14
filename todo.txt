@@ -1,6 +1,3 @@
-team.php - page with links to game boxscore(game.php) and players(player.php)
-
-
 game.php - show stats for each game
 
 player.php - show player stats per game and averages at the bottom
