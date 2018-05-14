@@ -1,4 +1,3 @@
-=====GAME
 <?php
   session_start();
   require_once('functions/html_base.php');
@@ -12,50 +11,49 @@
     die("ERROR: Could not connect. " . mysqli_connect_error());
   }
 
-  $query = "SELECT FirstName FROM Person WHERE Active = (SELECT Id FROM Games WHERE WonGame = ?)";
+  $query = "SELECT OpposingTeam, OpposingTeamScore, WonGame
+            FROM Games
+            LEFT JOIN Player
+            ON PersonId = Id
+            WHERE Active = 1";
+ $stmt = $db->prepare($query);
+ $stmt->execute();
+ $stmt->store_result();
+ $stmt->bind_result($opposingteam, $opposingteamscore, $wongame);
+
+
+ $query = "SELECT PlayerId, GameId TimeMin, TimeSec, Points, Assists, Rebounds
+           FROM StatsPerGame
+           LEFT JOIN Person
+           ON PersonId = Id";
 
   $stmt = $db->prepare($query);
-  $stmt->bind_param('i', $player_id);
-  $stmt->execute();
-  $stmt->bind_result($game_id);
-  $stmt->fetch();
-  $stmt->free_result();
-
-  if($stmt->execute() == false)
-            {
-              die('execute() failed: ' . htmlspecialchars($stmt->error));
-              }
-
-  $query = "SELECT PersonId, Height, Weight, Active FROM Player, Games,
-  (SELECT Id FROM Games LEFT JOIN PLAY ON Id = Points WHERE StatsPerGame IS NULL AND GameId = ?)
-  ORDER BY PersonId
-
-
-  ";
-
-  $stmt = $db->prepare($query);
-  $stmt->bind_param('ii', $game_id, $game_id);
   $stmt->execute();
   $stmt->store_result();
   $stmt->bind_result(
-    $firstname,
-    $lastname,
-    $id
+    $playerid,
+    $gameid,
+    $timemin,
+    $timesec,
+    $points,
+    $assists,
+    $rebounds
   );
-  if($stmt->execute() == false)
-            {
-              die('execute() failed: ' . htmlspecialchars($stmt->error));
-              }
-  ?>
+
 
   <table class="table table-bordered table-hover">
     <thead class="thead-dark">
       <tr class="info">
-        <th scope="col">GAME ID</th>
         <th scope="col">PLAYER ID</th>
-        <th scope="col">WON GAME</th>
+        <th scope="col">GAME ID</th>
+        <th scope="col">TIME MIN</th>
+        <th scope="col">TIME SEC</th>
+        <th scope="col">POINTS</th>
+        <th scope="col">ASSISTS</th>
+        <th scope="col">REBOUNDS</th>
+
       </tr>
-  </thead>
+    </thead>
 
   <?php
 
@@ -70,15 +68,15 @@
         $switch_color = true;
       }
     echo "<tr class=\"$toggle\">\n";
-    echo "<th scope=\"row\">".$game_id."</th>\n";
-    echo "<td>".$player_id."</td>\n";
-    echo "<td>".$first_name."</td>\n";
-    echo "<td>".$last_name."</td>\n";
-    echo "<td>";
-    echo "<a name=\"$player_id-$game_id\"  href='addplayer.php?player_id=".$player_id."&game_id=".$game_id."'>ADD</a>";
+    echo "<td>".$playerid."</td>\n";
+    echo "<td>".$gameid."</td>\n";
+    echo "<td>".$timemin."</td>\n";
+    echo "<td>".$timesec."</td>\n";
+    echo "<td>".$points."</td>\n";
+    echo "<td>".$assists."</td>\n";
+    echo "<td>".$rebounds."</td>\n";
     echo "<span> / </span>";
     echo "</td>";
-
     echo "</tr>";
   }
  ?>
