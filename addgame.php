@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <?php
 session_start();
 require_once('functions/html_base.php');
@@ -89,4 +86,3 @@ do_header("Add Game");
     require_once('functions/html_base.php');
     do_footer();
   ?>
->>>>>>> 6ce511368068921cb4b19a6ed51cfe6c7b0ce2e2
