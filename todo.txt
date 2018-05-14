@@ -7,7 +7,7 @@ player.php - show player stats per game and averages at the bottom
 
 logout
 
-<<<<<<< HEAD
+
 make player inactive/active with note
 
 if($stmt->execute() == false)
@@ -16,4 +16,3 @@ if($stmt->execute() == false)
             }
 =======
 Active and inactivate player
->>>>>>> 6ce511368068921cb4b19a6ed51cfe6c7b0ce2e2
