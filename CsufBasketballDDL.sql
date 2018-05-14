@@ -21,7 +21,17 @@ CREATE TABLE Person
   Email VARCHAR(100)
 
   CHECK (ZipCode REGEXP '(?!0{5})(?!9{5})\\d{5}(-(?!0{4})(?!9{4})\\d{4})?')
+  INDEX  (Name_Last),
+  UNIQUE (Name_Last, Name_First)
 );
+
+INSERT INTO Person VALUES
+('100', 'Donald',               'Duck',    '1313 S. Harbor Blvd.',    'Anaheim',            'CA',            'USA',     '92808-3232', donald@mail.com),
+('101', 'Daisy',                'Duck',    '1180 Seven Seas Dr.',     'Lake Buena Vista',   'FL',            'USA',     '32830', daisy@mail.com),
+('102', 'Mickey',               'Mouse',   '1313 S. Harbor Blvd.',    'Anaheim',            'CA',            'USA',     '92808-3232', mickey@mail.com),
+('103', 'Pluto',                'Dog',     '1313 S. Harbor Blvd.',    'Anaheim',            'CA',            'USA',     '92808-3232' pluto@mail.com),
+('104', 'Della',                'Duck',    '77700 Boulevard du Parc', 'Coupvray',           'Disney Paris',  'France',  NULL, della@mail.com);
+
 
 
 CREATE TABLE Users
@@ -48,6 +58,10 @@ CREATE TABLE Player
   FOREIGN KEY (PersonId) REFERENCES Person(Id)
 );
 
+INSERT INTO Player VALUES
+('22', '4.1', '155', '0', 'disabled', '02'),
+('12', '5.0', '150', '1', '', '01');
+
 
 CREATE TABLE Games
 (
@@ -57,6 +71,13 @@ CREATE TABLE Games
   OpposingTeamScore TINYINT NOT NULL,
   LastUpdatedBy INTEGER NOT NULL
 );
+
+INSERT INTO Games VALUES
+('4', '2', 'Eagles', '56', '02'),
+('5', '3', 'Falcons', '44', '01'),
+('6', '6', 'Hawks', '67', '04'),
+('7', '1', 'Knights', '59', '02'),
+('8', '4', 'Seaguls', '77', '01');
 
 CREATE TABLE StatsPerGame
 (
@@ -74,3 +95,11 @@ CREATE TABLE StatsPerGame
   CHECK((TimeMin < 40 AND TimeSec < 60) OR
         (TimeMin = 40 AND TimeSec = 0 ))
 );
+
+INSERT INTO StatsPerGame VALUES
+('1', '17', '100', '35', '12', '47', '11', '21'),
+('2', '18', '102', '13', '22', '13', '01', '03'),
+('3', '19', '103', '10', '00', '18', '02', '04'),
+('4', '20', '107', '02', '45', '09', '01', '02'),
+('5', '21', '102', '15', '39', '26', '03', '07'),
+('6', '22', '100', '29', '47', '27', '09', '08');

@@ -5,7 +5,7 @@
   require_once('functions/html_base.php');
   do_header("Login");
 ?>
-  <h1>Welcome to CSUF BaskeketBall Stats!</h1>
+  <h1>Welcome to CSUF BasketBall Stats!</h1>
 
   <form method="post" action="login_proc.php">
 
