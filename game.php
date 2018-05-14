@@ -1,6 +1,7 @@
-
-  <?php
-
+=====GAME
+<?php
+  session_start();
+  require_once('functions/html_base.php');
   do_header("View Game");
 
   require_once 'dbconnect.php';
@@ -11,7 +12,7 @@
     die("ERROR: Could not connect. " . mysqli_connect_error());
   }
 
-  $query = "SELECT PersonId FROM Player WHERE Active = (SELECT Id FROM Games WHERE WonGame = ?)";
+  $query = "SELECT FirstName FROM Person WHERE Active = (SELECT Id FROM Games WHERE WonGame = ?)";
 
   $stmt = $db->prepare($query);
   $stmt->bind_param('i', $player_id);
@@ -37,10 +38,9 @@
   $stmt->execute();
   $stmt->store_result();
   $stmt->bind_result(
-    $WonGame,
-    $OpposingTeam,
-    $OpposingTeamScore,
-    $LastUpdatedBy
+    $firstname,
+    $lastname,
+    $id
   );
   if($stmt->execute() == false)
             {

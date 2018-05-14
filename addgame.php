@@ -28,6 +28,7 @@ do_header("Add Game");
         <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Number of Assists</th>
         <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Number of Rebounds</th>
       </tr>
+
     <?php
     try {
       require_once('dbconnect.php');
