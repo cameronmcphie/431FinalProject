@@ -27,8 +27,6 @@
   ?>
 </div>
 
-
-
 <?php
   require_once('functions/html_base.php');
   do_footer();
