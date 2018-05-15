@@ -60,10 +60,10 @@ do_header("Add Game");
     while ($stmt->fetch())
     {
 
-      $inputtime = 'input type="text" name="time'.$counter.'" id="time" size="5" maxlength="5"';
-      $inputpoints = 'input type="text" name="points'.$counter.'" id="points" size="3" maxlength="3"';
-      $inputassists = 'input type="text" name="assists'.$counter.'" id="assists" size="3" maxlength="3"';
-      $inputrebounds = 'input type="text" name="rebounds'.$counter.'" id="rebounds" size="3" maxlength="3"';
+      $inputtime = 'input type="text" name="time'.$counter.'" id="time" size="5" maxlength="5" required';
+      $inputpoints = 'input type="text" name="points'.$counter.'" id="points" size="3" maxlength="3" required';
+      $inputassists = 'input type="text" name="assists'.$counter.'" id="assists" size="3" maxlength="3" required';
+      $inputrebounds = 'input type="text" name="rebounds'.$counter.'" id="rebounds" size="3" maxlength="3" required';
 
 
       echo "<tr>";
