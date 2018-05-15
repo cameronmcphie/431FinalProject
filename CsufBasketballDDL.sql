@@ -7,6 +7,9 @@ grant select, insert, update, execute on CsufBasketball.* to 'Manager' identifie
 drop user if exists 'User';
 grant select, update, execute on CsufBasketball.* to 'User' identified by 'withheld';
 
+  -- GRANT SELECT, INSERT, DELETE, UPDATE
+  -- ON CsufBasketball.Player, CsufBasketball.StatsPerGame
+
 USE CsufBasketball;
 
 CREATE TABLE Person
@@ -46,6 +49,10 @@ CREATE TABLE Users
   UNIQUE(Username, Password)
 );
 
+INSERT INTO Users VALUES
+('101', 'csuffan1', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0'),
+('102', 'eaglesfan', '3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d', '1');
+
 CREATE TABLE Player
 (
   PersonId INTEGER UNSIGNED NOT NULL PRIMARY KEY,
@@ -59,8 +66,14 @@ CREATE TABLE Player
 );
 
 INSERT INTO Player VALUES
-('22', '4.1', '155', '0', 'disabled', '02'),
-('12', '5.0', '150', '1', '', '01');
+('1', '5.10', '180', '0', 'disabled', '102'),
+('2', '5.8', '195', '1', '', '101'),
+('3', '6.4', '220', '1', '', '101'),
+('4', '6.5', '230', '1', '', '101'),
+('5', '6.0', '200', '1', '', '101'),
+('6', '6.3', '188', '1', '', '101'),
+('7', '6.2', '202', '1', '', '101');
+
 
 
 CREATE TABLE Games
@@ -97,9 +110,10 @@ CREATE TABLE StatsPerGame
 );
 
 INSERT INTO StatsPerGame VALUES
-('1', '17', '100', '35', '12', '47', '11', '21'),
-('2', '18', '102', '13', '22', '13', '01', '03'),
-('3', '19', '103', '10', '00', '18', '02', '04'),
-('4', '20', '107', '02', '45', '09', '01', '02'),
-('5', '21', '102', '15', '39', '26', '03', '07'),
-('6', '22', '100', '29', '47', '27', '09', '08');
+('1', '4', '100', '30', '12', '47', '01'),
+('2', '4', '102', '13', '22', '13', '01'),
+('3', '4', '103', '10', '60', '18', '02'),
+('4', '4', '107', '02', '45', '09', '01'),
+('5', '4', '102', '15', '39', '26', '03'),
+('6', '4', '100', '29', '47', '27', '09'),
+('7', '4', '90', '30', '55', '10', '04');
