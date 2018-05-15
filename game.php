@@ -31,25 +31,6 @@ while ($stmt->fetch()){
   echo "<h2>$csufscore - $opposingteamscore</h2>";
   echo "</div>";
 }
-
-
-
-// $query = "SELECT PlayerId, GameId TimeMin, TimeSec, Points, Assists, Rebounds
-//            FROM StatsPerGame
-//            LEFT JOIN Person
-//            ON PersonId = Id";
-//   $stmt = $db->prepare($query);
-//   $stmt->execute();
-//   $stmt->store_result();
-//   $stmt->bind_result(
-//     $playerid,
-//     $gameid,
-//     $timemin,
-//     $timesec,
-//     $points,
-//     $assists,
-//     $rebounds
-//   );
 ?>
 
   <table style="border:1px solid black; border-collapse:collapse;" cellpadding=10>
