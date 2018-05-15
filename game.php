@@ -3,6 +3,8 @@
   require_once('functions/html_base.php');
   do_header("View Game");
 
+  $gameId = $_GET['gameId'];
+
   require_once 'dbconnect.php';
   $db = new mysqli(DATA_BASE_HOST, USER_NAME, USER_PASSWORD, DATA_BASE_NAME);
 
@@ -11,76 +13,89 @@
     die("ERROR: Could not connect. " . mysqli_connect_error());
   }
 
-  $query = "SELECT OpposingTeam, OpposingTeamScore, WonGame
+  $query = "SELECT OpposingTeam, OpposingTeamScore, WonGame, SUM(Points)
             FROM Games
-            LEFT JOIN Player
-            ON PersonId = Id
-            WHERE Active = 1";
+            JOIN StatsPerGame
+            ON Id = GameId
+            Where Id = ?
+            GROUP BY OpposingTeam, OpposingTeamScore, WonGame";
  $stmt = $db->prepare($query);
+ $stmt->bind_param('i', $gameId);
  $stmt->execute();
  $stmt->store_result();
- $stmt->bind_result($opposingteam, $opposingteamscore, $wongame);
+ $stmt->bind_result($opposingteam, $opposingteamscore, $wongame, $csufscore);
+
+while ($stmt->fetch()){
+  echo '<div style="text-align: center;">';
+  echo "<h1>CSUF vs $opposingteam</h1>";
+  echo "<h2>$csufscore - $opposingteamscore</h2>";
+  echo "</div>";
+}
 
 
- $query = "SELECT PlayerId, GameId TimeMin, TimeSec, Points, Assists, Rebounds
-           FROM StatsPerGame
-           LEFT JOIN Person
-           ON PersonId = Id";
 
-  $stmt = $db->prepare($query);
-  $stmt->execute();
-  $stmt->store_result();
-  $stmt->bind_result(
-    $playerid,
-    $gameid,
-    $timemin,
-    $timesec,
-    $points,
-    $assists,
-    $rebounds
-  );
+// $query = "SELECT PlayerId, GameId TimeMin, TimeSec, Points, Assists, Rebounds
+//            FROM StatsPerGame
+//            LEFT JOIN Person
+//            ON PersonId = Id";
+//   $stmt = $db->prepare($query);
+//   $stmt->execute();
+//   $stmt->store_result();
+//   $stmt->bind_result(
+//     $playerid,
+//     $gameid,
+//     $timemin,
+//     $timesec,
+//     $points,
+//     $assists,
+//     $rebounds
+//   );
+?>
 
-
-  <table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-      <tr class="info">
-        <th scope="col">PLAYER ID</th>
-        <th scope="col">GAME ID</th>
-        <th scope="col">TIME MIN</th>
-        <th scope="col">TIME SEC</th>
-        <th scope="col">POINTS</th>
-        <th scope="col">ASSISTS</th>
-        <th scope="col">REBOUNDS</th>
-
+  <table style="border:1px solid black; border-collapse:collapse;" cellpadding=10>
+      <tr>
+        <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Player</th>
+        <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Time on Court</th>
+        <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Points Scored</th>
+        <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Assists</th>
+        <th style="vertical-align:top; border:1px solid black; background: lightgreen;">Rebounds</th>
       </tr>
-    </thead>
 
-  <?php
+<?php
 
-  $toggle = "table-active";
-  $switch_color = false;
-  while ($stmt->fetch()){
-    if ($switch_color) {
-        $toggle = "table-success";
-        $switch_color = false;
-      } else {
-        $toggle = "table-light";
-        $switch_color = true;
-      }
-    echo "<tr class=\"$toggle\">\n";
-    echo "<td>".$playerid."</td>\n";
-    echo "<td>".$gameid."</td>\n";
-    echo "<td>".$timemin."</td>\n";
-    echo "<td>".$timesec."</td>\n";
-    echo "<td>".$points."</td>\n";
-    echo "<td>".$assists."</td>\n";
-    echo "<td>".$rebounds."</td>\n";
-    echo "<span> / </span>";
-    echo "</td>";
-    echo "</tr>";
-  }
+$query = "SELECT FirstName,
+              		LastName,
+                  TimeMin,
+                  TimeSec,
+                  Points,
+                  Assists,
+                  Rebounds
+              FROM Person
+              LEFT JOIN StatsPerGame
+              ON Id = PlayerId
+              WHERE GameId = ?";
+$stmt = $db->prepare($query);
+$stmt->bind_param('i', $gameId);
+$stmt->execute();
+$stmt->store_result();
+$stmt->bind_result($firstname, $lastname, $timemin, $timesec, $points, $assists, $rebounds);
+
+$fmtstyle = 'style="vertical-align:top; text-align:center; border:1px solid black;"';
+
+while ($stmt->fetch()){
+
+  echo "<tr>";
+  echo "<td $fmtstyle>$firstname $lastname</td>";
+  echo "<td $fmtstyle>$timemin:$timesec</td>";
+  echo "<td $fmtstyle>$points</td>";
+  echo "<td $fmtstyle>$assists</td>";
+  echo "<td $fmtstyle>$rebounds</td>";
+  echo "</tr>";
+}
  ?>
 </table>
 
-  </body>
-</html>
+<?php
+  require_once('functions/html_base.php');
+  do_footer();
+?>
